@@ -1,0 +1,6 @@
+-cp src/main/haxe
+-lib stx
+-lib stx_ds
+-D analyzer-optimize
+-main Main
+--interp
