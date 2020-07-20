@@ -2,14 +2,12 @@ package stx.om.spine.pack;
 
 import stx.om.spine.Package.Section;
 
-
-@:forward abstract Route(ReadOnlyArray<Section>) from ReadOnlyArray<Section> to ReadOnlyArray<Section>{
+@:forward abstract Route(Array<Section>) from Array<Section> to Array<Section>{
   static public function unit():Route{
     return [];
   }
   @:from static public function fromArray(arr:Array<Section>){
-    var a : ReadOnlyArray<Section> = arr;
-    return new Route(a);
+    return new Route(arr);
   }
   @:arrayAccess public function get(v:Int):Section{
     return this[v];
@@ -26,18 +24,19 @@ import stx.om.spine.Package.Section;
       var tail  = rst.map(
         function(x){
           return switch(x){
-            case Offset(i):   '[$i]';
-            case Choice(str): '.$str';
+            case Ordinal(i):   '[$i]';
+            case Nominal(str): '.$str';
           }
         }
       ).join("");
       switch(fst){
-        case Choice(str) : '$str$tail';
-        case Offset(idx) : '[$idx]$tail';
+        case Some(Nominal(str))  : '$str$tail';
+        case Some(Ordinal(idx))  : '[$idx]$tail';
+        case None               : '$tail'; 
       }
     }
   }
-  public function unbox():Array<Section>{
-    return this.toArray();
+  public function prj():Array<Section>{
+    return this;
   }
 }

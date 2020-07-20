@@ -1,17 +1,15 @@
 package stx.om;
 
 using Lambda;
-using stx.core.Lift;
 
-import haxe.ds.Option;
-import stx.fn.Package;
-import stx.core.Package;
-import stx.ds.Package;
+import stx.om.core.Record;
 
-import haxe.ds.ReadOnlyArray;
+import stx.alias.StdType;
 
-import stx.om.core.Package;
-import stx.om.sig.Package;
-import stx.om.sig.head.Data;
-import stx.om.spine.Package;
-import stx.om.spine.head.Data;
+using stx.Std;
+using stx.Pico;
+using stx.Nano;
+using stx.Ds;
+using stx.Fn;
+using stx.Log;
+using stx.Assert;

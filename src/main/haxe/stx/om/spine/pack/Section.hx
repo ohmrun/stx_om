@@ -1,9 +1,11 @@
-
 package stx.om.spine.pack;
 
-import stx.om.spine.head.Data.Section in SectionT;
+enum SectionSum{
+  Ordinal(int:Int);
+  Nominal(str:String);
+}
 
-abstract Section(SectionT) from SectionT to SectionT{
+abstract Section(SectionSum) from SectionSum to SectionSum{
   public function new(self){
     this = self;
   }
@@ -14,24 +16,24 @@ abstract Section(SectionT) from SectionT to SectionT{
     return fromString(s);
   }
   @:from static public function fromInt(int:Int):Section{
-    return Offset(int);
+    return Ordinal(int);
   }
   @:from static public function fromString(str:String):Section{
-    return Choice(str);
+    return Nominal(str);
   }
   public function toString(){
     return switch(this){
-      case Choice(str) : str;
-      case Offset(i)   : '[$i]';
+      case Nominal(str) : str;
+      case Ordinal(i)   : '[$i]';
     }
   }
   @:op(A==A)
   public function equals(r:Section):Bool{
     var l = this;
     return switch([l,r]){
-      case [Choice(l),Choice(r)] : l == r;
-      case [Offset(l),Offset(r)] : l == r;
-      default                  : false;
+      case [Nominal(l),Nominal(r)]  : l == r;
+      case [Ordinal(l),Ordinal(r)]  : l == r;
+      default                       : false;
     }
   }
 }

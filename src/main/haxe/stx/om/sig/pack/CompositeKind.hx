@@ -1,6 +1,6 @@
 package stx.om.sig.head.data;
 
 enum CompositeKind{
-    Ordered;
-    Offseted;
+  CK_Nominal;
+  CK_Ordinal;
 }

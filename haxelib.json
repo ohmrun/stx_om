@@ -3,5 +3,9 @@
   "releasenote": "",
   "license": "MIT",
   "contributors": ["0b1kn0b"],
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "classPath": "src/main/haxe/",
+  "dependencies": {
+    "stx_log": ""
+  }
 }

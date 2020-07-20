@@ -1,11 +1,9 @@
-package stx.om.core.pack;
+package stx.om.core;
 
+typedef RecordDef<T> = Array<Field<Thunk<T>>>;
 
-import stx.assert.pack.Eq;
-import stx.om.core.head.data.Record in RecordT;
-
-abstract Record<T>(RecordT<T>) from RecordT<T>{
-  public function new(?self) this = self == null ? [] : self;
+@:forward(iterator) abstract Record<T>(RecordDef<T>) from RecordDef<T>{
+  public function new(?self:RecordDef<T>) this = self == null ? [] : self;
 
   public function size(){
     return this.length;
@@ -13,7 +11,7 @@ abstract Record<T>(RecordT<T>) from RecordT<T>{
   public function add(that:Field<Thunk<T>>):Record<T>{
     return this.concat([that]);
   }
-  public function equals(that:Record<T>,with:Eq<T>){
+  public function equals(that:Record<T>,with:Eq<T>):Bool{
     return if(this.length != that.size()){
       false;
     }else{
@@ -24,12 +22,12 @@ abstract Record<T>(RecordT<T>) from RecordT<T>{
         switch(other){
           case None       : false;
           case Some(v0)   : 
-            if(!with(v.val(),v0())){
+            if(!with.applyII(v.val(),v0()).ok()){
               ok = false;
               break;
             } 
         } 
-      }
+      };
       ok;
     }
   }
@@ -47,10 +45,14 @@ abstract Record<T>(RecordT<T>) from RecordT<T>{
     }
   }
   public function has(key){
-    return get(key).isDefined();
+    return get(key).map((_) -> true).def(()->false);
   }
   public function fold<U>(fn:Field<Thunk<T>>->U->U,i:U):U{
-    return Lambda.fold(this,fn,i);
+    var current = i;
+    for(v in this){
+      current = fn(v,current);
+    }
+    return current;
   }
   static public function reduct<T>(){
     return function(next:Field<Thunk<T>>,memo:Record<T>):Record<T>{
@@ -61,9 +63,24 @@ abstract Record<T>(RecordT<T>) from RecordT<T>{
     return this.map(
       (fld) -> fld.map(
         (thk) -> {
-          return () -> fn(thk())
+          return () -> fn(thk());
         }
       )
-    ).fold(reduct(),new Record());
+    ).lfold(reduct(),new Record());
+  }
+  public function mapi<U>(fn:Int->T->U):Record<U>{
+    return this.mapi(
+      (i,fld) -> fld.map(
+        (thk) -> {
+          return () -> fn(i,thk());
+        }
+      )
+    ).lfold(reduct(),new Record());
+  }
+  @:from static public function fromUnderlying<T>(arr:Array<Field<Thunk<T>>>){
+    return new Record(arr);
+  }
+  public function prj():Array<Field<Thunk<T>>>{
+    return this;
   }
 }
