@@ -1,9 +1,13 @@
-# Haxe project
+# stx_om
 
-This is an example Haxe project scaffolded by Visual Studio Code.
+Jsonic type object model and signature with type holes.
 
-Without further changes the structure is following:
-
- * `src/Main.hx`: Entry point Haxe source file
- * `build.hxml`: Haxe command line file used to build the project
- * `README.md`: This file
+```haxe
+enum SpineSum<T>{
+ Unknown;
+ Primate(sc:Primitive);
+ Collect(arr:Array<Thunk<Spine<T>>>);
+ Collate(arr:Record<Spine<T>>);
+ Predate(v:T);
+}
+```
