@@ -3,6 +3,8 @@ package stx.om.core;
 typedef RecordDef<T> = Array<Field<Thunk<T>>>;
 
 @:forward(iterator) abstract Record<T>(RecordDef<T>) from RecordDef<T>{
+  static public var _(default,never) = RecordLift;
+
   public function new(?self:RecordDef<T>) this = self == null ? [] : self;
 
   public function size(){
@@ -82,5 +84,14 @@ typedef RecordDef<T> = Array<Field<Thunk<T>>>;
   }
   public function prj():Array<Field<Thunk<T>>>{
     return this;
+  }
+  
+}
+class RecordLift{
+  static public function ord<T>(inner:Ord<T>):Ord<Record<T>>{
+    return new stx.assert.pack.ord.term.Record(inner);
+  }
+  static public function eq<T>(inner):Eq<Record<T>>{
+    return new stx.assert.pack.eq.term.Record(inner);
   }
 }

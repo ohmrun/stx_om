@@ -2,7 +2,13 @@ package stx.om.spine;
 
 abstract Zip<T>(Option<LinkedList<Spine<T>>>) from Option<LinkedList<Spine<T>>>{
   @:from static public function fromSpine<T>(s:Spine<T>):Zip<T>{
-    return Some(Cons(s,LinkedList.unit()));
+    return lift(Some(Cons(s,LinkedList.unit())));
+  }
+  @:noUsing static public function lift<T>(self:Option<LinkedList<Spine<T>>>):Zip<T>{
+    return new Zip(self);
+  }
+  @:noUsing static public function unit<T>():Zip<T>{
+    return lift(Option.unit());
   }
   public function new(?self){
     if (self == null){
@@ -12,22 +18,24 @@ abstract Zip<T>(Option<LinkedList<Spine<T>>>) from Option<LinkedList<Spine<T>>>{
   }
   public function indicant(ls:LinkedList<Section>){
     return ls.fold(
-      function(next:Section,memo:Zip):Zip{
+      function(next:Section,memo:Zip<T>):Zip<T>{
         return memo.down(next);
       },
-      (this:Zip)
+      (this:Zip<T>)
     );
   }
   public function down(selector:Section):Zip<T>{
     return switch([this,selector]){
-      case [Some(Cons(SRecord(arr),xs)),Nominal(str)]:
+      case [Some(Cons(Collate(arr),xs)),Nominal(str)]:
+
         var val = arr.fold(
-          function(next,memo:Option<Field<Thunk<Spine>>>){
-            return memo.fold(Some.fn().then(_ -> _.core()),
-              () -> next.key == str ? memo : None
+          function(next,memo:Option<Field<Thunk<Spine<T>>>>){
+            return memo.fold(
+              Option.pure,
+              () -> next.key == str ? memo : Option.unit()
             );
           },
-          None.core()
+          Option.unit()
         );
         val.fold(
           (thk) ->
@@ -38,7 +46,8 @@ abstract Zip<T>(Option<LinkedList<Spine<T>>>) from Option<LinkedList<Spine<T>>>{
             ),
           () -> None 
         );
-      default : None;
+      //case [Some(Cons(Collect(arr),xs))]
+      default : Option.unit();
     }
   }
   public function up(){

@@ -6,6 +6,13 @@
   "version": "0.0.1",
   "classPath": "src/main/haxe/",
   "dependencies": {
-    "stx_log": ""
+    "stx_pico": "",
+    "stx_nano": "",
+    "stx_ext": "",
+    "stx_ds": "",
+    "stx_assert": "",
+    "stx_log": "",
+    "pml" : "",
+    "reduct": ""
   }
 }

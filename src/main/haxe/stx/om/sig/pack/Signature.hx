@@ -1,11 +1,11 @@
 package stx.om.sig.pack;
 
-enum SignatureSum<TH>{
-  SigRecord(arr:Record<Signature<TH>>);
-  SigScalar(s:PrimitiveKind);
-  SigArray(fn:Thunk<Signature<TH>>);  
+enum SignatureSum<T>{
+  SigCollate(arr:Record<Signature<T>>);
+  SigPrimate(s:PrimitiveKind);
+  SigCollect(fn:Thunk<Signature<T>>);  
+  SigPredate(v:T);
   SigUnknown;
-  SigInject(v:TH);
 }
 
 @:using(stx.om.sig.pack.Signature.SignatureLift)
@@ -21,7 +21,7 @@ abstract Signature<TH>(SignatureSum<TH>) from SignatureSum<TH> to SignatureSum<T
   private function get_self():Signature<TH> return lift(this);
 }
 class SignatureLift{
-  static public function testyWoo<TH>(os:Signature<TH>){
-    return true;
+  static public function equals<T>(lhs:Signature<T>,rhs:Signature<T>,inner:Eq<T>){
+    return new stx.assert.pack.eq.term.Signature(inner).applyII(lhs,rhs);
   }
 }

@@ -1,3 +1,3 @@
 package stx.om.spine.pack;
 
-typedef SpineMap<T> = Record<SpineOpen<T>>;
+typedef SpineMap<T> = Record<Spine<T>>;
