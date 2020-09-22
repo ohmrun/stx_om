@@ -52,14 +52,14 @@ abstract Zip<T>(Option<LinkedList<Spine<T>>>) from Option<LinkedList<Spine<T>>>{
   }
   public function up(){
     return switch this {
-      case Some(Cons(x,xs)) : Some(xs);
-      default : None;
+      case Some(Cons(x,xs))   : Some(xs);
+      default                 : None;
     }
   }
   public function is_root(){
     return switch this{
-      case Some(Cons(x,Nil)) : true;
-      default : false;
+      case Some(Cons(x,Nil))  : true;
+      default                 : false;
     }
   }
   public function is_defined(){

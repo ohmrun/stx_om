@@ -1,6 +1,7 @@
 -main Main
 --interp
 
+-D no-deprecation-warnings
 -D analyzer-optimize
 -D test
 

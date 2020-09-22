@@ -3,7 +3,7 @@ import stx.om.sig.pack.Signature in SignatureT;
 
 class Signature<T> implements EqApi<SignatureT<T>> extends Clazz{
   public var inner(default,null):Eq<T>;
-public function new(inner){
+  public function new(inner){
     super();
     this.inner = inner;
   }
