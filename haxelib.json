@@ -1,18 +1,17 @@
 {
   "name" : "stx_om",
-  "releasenote": "",
+  "releasenote": "see CHANGELOG.md",
   "license": "MIT",
   "contributors": ["0b1kn0b"],
-  "version": "0.0.1",
+  "version": "0.1.0",
   "classPath": "src/main/haxe/",
   "dependencies": {
-    "stx_pico": "",
-    "stx_nano": "",
-    "stx_ext": "",
-    "stx_ds": "",
-    "stx_assert": "",
-    "stx_log": "",
-    "pml" : "",
-    "reduct": ""
+    "stx_pico": "1.0.0",
+    "stx_nano": "0.1.5",
+    "stx_ext": "0.1.0",
+    "stx_ds": "0.2.0",
+    "stx_assert": "1.0.0",
+    "stx_log": "0.1.4",
+    "pml" : "0.2.0"
   }
 }
