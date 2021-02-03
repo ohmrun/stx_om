@@ -9,11 +9,10 @@
 -lib stx_pico
 -lib stx_nano
 -lib stx_ds
--lib stx_ext
--lib stx_log:0.1.4
--lib stx_assert:0.1.1
+-lib stx_log
+-lib stx_assert
 
--lib pml
+#-lib pml
 -lib reduct
 
 

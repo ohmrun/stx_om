@@ -68,4 +68,24 @@ class SpineLift{
   static public function equals<T>(thiz:Spine<T>,that:Spine<T>,with:Eq<T>){
     return new stx.assert.pack.eq.term.Spine(with).applyII(thiz,that);
   }
+  static public function fold<T,Z>(self:Spine<T>,unknown:Void->Z,primate:Primitive->Z,collect:Array<Z>->Z,collate:Record<Z>->Z,predate:T->Z){
+    var f = fold.bind(_,unknown,primate,collect,collate,predate);
+    return switch(self){
+      case Unknown        : unknown();
+      case Primate(sc)    : primate(sc);
+      case Collect(arr)   : collect(arr.map((x) -> f(x())));
+      case Collate(arr)   : collate(arr.map(f));
+      case Predate(v)     : predate(v); 
+    }
+  }
+  static public function toSig<T,Z>(self:Spine<T>,primate:Primitive->Signature<Z>,collect:Spine<T>->Signature<Z>->Signature<Z>,collect_unit:Signature<Z>,collate:Record<Signature<Z>>->Signature<Z>,predate:T->Signature<Z>):Signature<Z>{
+    var f = toSig.bind(_,primate,collect,collect_unit,collate,predate);
+    return switch(self){
+      case Unknown        : SigUnknown;
+      case Primate(sc)    : primate(sc);
+      case Collect(arr)   : arr.lfold((next,memo)->collect(next(),memo),collect_unit);
+      case Collate(arr)   : collate(arr.map(f));
+      case Predate(v)     : predate(v);
+    }
+  }
 }

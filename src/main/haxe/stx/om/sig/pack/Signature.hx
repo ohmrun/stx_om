@@ -24,4 +24,14 @@ class SignatureLift{
   static public function equals<T>(lhs:Signature<T>,rhs:Signature<T>,inner:Eq<T>){
     return new stx.assert.pack.eq.term.Signature(inner).applyII(lhs,rhs);
   }
+  static public function fold<T,Z>(self:Signature<T>,recd: Record<Z>->Z,prim:PrimitiveKind->Z,array:Thunk<Signature<T>>->Z,fn:T->Z,n:Void->Z):Z{
+    var f = fold.bind(_,recd,prim,array,fn,n);
+    return switch self.prj() {
+      case SigCollate(arr)  : recd(arr.map(f));
+      case SigPrimate(s)    : prim(s);
+      case SigCollect(t)    : array(t);
+      case SigPredate(v)    : fn(v);
+      case SigUnknown       : n();
+    }
+  }
 }
