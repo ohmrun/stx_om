@@ -11,8 +11,6 @@
     "stx_ds"        : "git:https://github.com/ohmrun/stx_ds.git",
     
     "stx_log"       : "git:https://github.com/ohmrun/stx_log.git",
-    "stx_assert"    : "git:https://github.com/ohmrun/stx_assert.git",
-
-    "pml" : "0.2.0"
+    "stx_assert"    : "git:https://github.com/ohmrun/stx_assert.git"
   }
 }
