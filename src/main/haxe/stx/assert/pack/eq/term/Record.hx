@@ -8,11 +8,11 @@ class Record<T> implements EqApi<RecordT<T>> extends Clazz{
     super();
     this.inner = inner;
   }
-  public function applyII(a:RecordT<T>,b:RecordT<T>):Equaled{
+  public function comply(a:RecordT<T>,b:RecordT<T>):Equaled{
     return Eq.Array(
       Eq.Anon(
-        (lhs:Field<Thunk<T>>,rhs:Field<Thunk<T>>) -> Eq.String().applyII(lhs.fst(),rhs.fst()) && inner.applyII(lhs.snd()(),rhs.snd()())
+        (lhs:Field<Thunk<T>>,rhs:Field<Thunk<T>>) -> Eq.String().comply(lhs.fst(),rhs.fst()) && inner.comply(lhs.snd()(),rhs.snd()())
       )
-    ).applyII(a.prj(),b.prj());
+    ).comply(a.prj(),b.prj());
   }
 }

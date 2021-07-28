@@ -24,7 +24,7 @@ typedef RecordDef<T> = Array<Field<Thunk<T>>>;
         switch(other){
           case None       : false;
           case Some(v0)   : 
-            if(!with.applyII(v.val(),v0()).ok()){
+            if(!with.comply(v.val(),v0()).ok()){
               ok = false;
               break;
             } 

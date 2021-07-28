@@ -22,7 +22,7 @@ abstract Signature<TH>(SignatureSum<TH>) from SignatureSum<TH> to SignatureSum<T
 }
 class SignatureLift{
   static public function equals<T>(lhs:Signature<T>,rhs:Signature<T>,inner:Eq<T>){
-    return new stx.assert.pack.eq.term.Signature(inner).applyII(lhs,rhs);
+    return new stx.assert.pack.eq.term.Signature(inner).comply(lhs,rhs);
   }
   static public function fold<T,Z>(self:Signature<T>,recd: Record<Z>->Z,prim:PrimitiveKind->Z,array:Thunk<Signature<T>>->Z,fn:T->Z,n:Void->Z):Z{
     var f = fold.bind(_,recd,prim,array,fn,n);
