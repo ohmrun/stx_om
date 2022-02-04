@@ -1,4 +1,4 @@
-package stx.om.spine;
+package stx.om.spine.pack;
 
 abstract Zip<T>(Option<LinkedList<Spine<T>>>) from Option<LinkedList<Spine<T>>>{
   @:from static public function fromSpine<T>(s:Spine<T>):Zip<T>{

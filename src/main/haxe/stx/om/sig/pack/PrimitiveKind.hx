@@ -14,11 +14,12 @@ abstract PrimitiveKind(PrimitiveKindSum) from PrimitiveKindSum to PrimitiveKindS
   }
   @:from static public function fromPrimitive(p:Primitive):PrimitiveKind{
     return switch p {
-      case PNull      : TUntypedUnknown;
-      case PBool(_)   : TBoolean;
-      case PInt(_)    : TInteger;
-      case PFloat(_)  : TFloatingPoint;
-      case PString(_) : TCharacters;
+      case PNull                      : TUntypedUnknown;
+      case PBool(_)                   : TBoolean;
+      case PSprig(Byteal(NInt(_)))    : TInteger;
+      case PSprig(Byteal(NInt64(_)))  : TInteger;
+      case PSprig(Byteal(NFloat(_)))  : TFloatingPoint;
+      case PSprig(Textal(_))          : TCharacters;
     }
   }
   public function prj():PrimitiveKindSum{

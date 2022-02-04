@@ -5,8 +5,8 @@ package stx.om.spine;
 #end
 typedef Route       = stx.om.spine.pack.Route;
 typedef Section     = stx.om.spine.pack.Section;
-typedef Spine       = stx.om.spine.pack.Spine;
-typedef Zip         = stx.om.spine.pack.Zip;
+typedef Spine<T>    = stx.om.spine.pack.Spine<T>;
+typedef Zip<T>      = stx.om.spine.pack.Zip<T>;
 
 class Package {
   #if test

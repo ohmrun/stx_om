@@ -12,10 +12,10 @@ class Spine<T> implements EqApi<SpineT<T>>{
 
   public function comply(a:SpineT<T>,b:SpineT<T>):Equaled{
     return switch([a,b]){
-      case [Primate(PBool(b0)),Primate(PBool(b1))]                  : b0 == b1;
-      case [Primate(PInt(b0)),Primate(PInt(b1))]                    : b0 == b1;
-      case [Primate(PFloat(b0)),Primate(PFloat(b1))]                : b0 == b1;
-      case [Primate(PString(b0)),Primate(PString(b1))]              : b0 == b1;
+      case [Primate(PBool(b0)),Primate(PBool(b1))]                                      : b0 == b1;
+      case [Primate(PSprig(Byteal(NInt(b0)))),Primate(PSprig(Byteal(NInt(b1))))]        : b0 == b1;
+      case [Primate(PSprig(Byteal((b0)))),Primate(PSprig(Byteal((b1))))]                : b0 == b1;
+      case [Primate(PSprig(Textal(b0))),Primate(PSprig(Textal(b1)))]                    : b0 == b1;
       case [Collate(arr0),Collate(arr1)]                            : new RecordEq(this).comply(arr0,arr1);
       case [Collect(arr0),Collect(arr1)]                            : 
         Eq.Array(
