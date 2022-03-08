@@ -1,10 +1,16 @@
 package stx.om.core;
 
-typedef RecordDef<T> = Array<Field<Thunk<T>>>;
+typedef RecordDef<T> = Cluster<Field<Thunk<T>>>;
 
-@:forward(iterator) abstract Record<T>(RecordDef<T>) from RecordDef<T>{
+@:forward(iterator,length) abstract Record<T>(RecordDef<T>) from RecordDef<T>{
   static public var _(default,never) = RecordLift;
 
+  static public function unit<T>():Record<T>{
+    return new Record([].imm());
+  }
+  static public function lift<T>(self:RecordDef<T>):Record<T>{
+    return new Record(self);
+  }
   public function new(?self:RecordDef<T>) this = self == null ? [] : self;
 
   public function size(){
@@ -24,7 +30,7 @@ typedef RecordDef<T> = Array<Field<Thunk<T>>>;
         switch(other){
           case None       : false;
           case Some(v0)   : 
-            if(!with.comply(v.val(),v0()).ok()){
+            if(!with.comply(v.val(),v0()).is_ok()){
               ok = false;
               break;
             } 
@@ -63,15 +69,18 @@ typedef RecordDef<T> = Array<Field<Thunk<T>>>;
   }
   public function map<U>(fn:T->U):Record<U>{
     return this.map(
-      (fld) -> fld.map(
+      (fld:Field<Thunk<T>>) -> fld.map(
         (thk) -> {
           return () -> fn(thk());
         }
       )
     ).lfold(reduct(),new Record());
   }
-  public function mapi<U>(fn:Int->T->U):Record<U>{
-    return this.mapi(
+  public function concat(that:Record<T>):Record<T>{
+    return lift(this.concat(that.prj()));
+  }
+  public function imap<U>(fn:Int->T->U):Record<U>{
+    return this.imap(
       (i,fld) -> fld.map(
         (thk) -> {
           return () -> fn(i,thk());
@@ -79,10 +88,10 @@ typedef RecordDef<T> = Array<Field<Thunk<T>>>;
       )
     ).lfold(reduct(),new Record());
   }
-  @:from static public function fromUnderlying<T>(arr:Array<Field<Thunk<T>>>){
+  @:from static public function fromUnderlying<T>(arr:Cluster<Field<Thunk<T>>>){
     return new Record(arr);
   }
-  public function prj():Array<Field<Thunk<T>>>{
+  public function prj():Cluster<Field<Thunk<T>>>{
     return this;
   }
   

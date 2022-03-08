@@ -19,6 +19,8 @@ abstract Signature<TH>(SignatureSum<TH>) from SignatureSum<TH> to SignatureSum<T
   public function prj():SignatureSum<TH> return this;
   private var self(get,never):Signature<TH>;
   private function get_self():Signature<TH> return lift(this);
+
+  //public function fromSpine<T>(self:Spine<T,)
 }
 class SignatureLift{
   static public function equals<T>(lhs:Signature<T>,rhs:Signature<T>,inner:Eq<T>){

@@ -18,7 +18,7 @@ class Spine<T> implements EqApi<SpineT<T>>{
       case [Primate(PSprig(Textal(b0))),Primate(PSprig(Textal(b1)))]                    : b0 == b1;
       case [Collate(arr0),Collate(arr1)]                            : new RecordEq(this).comply(arr0,arr1);
       case [Collect(arr0),Collect(arr1)]                            : 
-        Eq.Array(
+        Eq.Cluster(
           Eq.Anon(
             (lhs:Thunk<SpineT<T>>,rhs:Thunk<SpineT<T>>) -> this.comply(lhs(),rhs())
           )

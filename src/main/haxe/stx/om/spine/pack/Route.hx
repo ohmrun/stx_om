@@ -2,11 +2,11 @@ package stx.om.spine.pack;
 
 import stx.om.spine.Package.Section;
 
-@:forward abstract Route(Array<Section>) from Array<Section> to Array<Section>{
+@:forward abstract Route(Cluster<Section>) from Cluster<Section> to Cluster<Section>{
   static public function unit():Route{
-    return [];
+    return Cluster.unit();
   }
-  @:from static public function fromArray(arr:Array<Section>){
+  @:from static public function fromCluster(arr:Cluster<Section>){
     return new Route(arr);
   }
   @:arrayAccess public function get(v:Int):Section{
@@ -36,7 +36,7 @@ import stx.om.spine.Package.Section;
       }
     }
   }
-  public function prj():Array<Section>{
+  public function prj():Cluster<Section>{
     return this;
   }
 }

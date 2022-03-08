@@ -12,6 +12,6 @@ class Record<T> implements OrdApi<RecordT<T>>{
       (lhs:Field<Thunk<T>>,rhs:Field<Thunk<T>>) -> {
         return Ord.String().comply(lhs.fst(),rhs.fst()) &&  inner.comply(lhs.snd()(),rhs.snd()());
     });
-    return Ord.Array(inner_inner).comply(lhs.prj(),rhs.prj());
+    return Ord.Cluster(inner_inner).comply(lhs.prj(),rhs.prj());
   }
 }

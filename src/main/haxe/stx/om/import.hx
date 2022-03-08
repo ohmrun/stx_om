@@ -2,7 +2,7 @@ package stx.om;
 
 using Lambda;
 
-import stx.om.core.Record;
+import stx.om.Core;
 
 import stx.alias.StdType;
 

@@ -1,6 +1,7 @@
 {
   "build" : {
-    "-lib" : ["stx_pico","stx_nano","stx_ds","stx_log","stx_assert"],
+    "-resource" : ["src/main/haxe/resources/test.pml@test.pml"],
+    "-lib" : ["stx_pico","stx_nano","stx_ds","stx_log","stx_assert","pml"],
     "-cp" : "src/main/haxe",
     "unit" : {
       "--macro" : [
@@ -9,6 +10,12 @@
         "include('stx.om.Signature',true)",
         "include('stx.om.signature',true)"
       ],
+      "interp" : {
+        "--interp" : true
+      }
+    },
+    "test" : {
+      "-main" : "stx.om.Test",
       "interp" : {
         "--interp" : true
       }

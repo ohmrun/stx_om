@@ -3,7 +3,7 @@ package stx.om.spine.pack;
 enum SpineSum<T>{
   Unknown;
   Primate(sc:Primitive);
-  Collect(arr:Array<Thunk<Spine<T>>>);
+  Collect(arr:Cluster<Thunk<Spine<T>>>);
   Collate(arr:Record<Spine<T>>);
   Predate(v:T);
 }
@@ -12,7 +12,7 @@ enum SpineSum<T>{
     return Primate(v);
   }
   @:noUsing static public function record<T>():Spine<T>{
-    return Collate([]);
+    return Collate(Cluster.unit());
   }
   @:noUsing static public function array<T>():Spine<T>{
     return Collect([]);
@@ -68,7 +68,7 @@ class SpineLift{
   static public function equals<T>(thiz:Spine<T>,that:Spine<T>,with:Eq<T>){
     return new stx.assert.pack.eq.term.Spine(with).comply(thiz,that);
   }
-  static public function fold<T,Z>(self:Spine<T>,unknown:Void->Z,primate:Primitive->Z,collect:Array<Z>->Z,collate:Record<Z>->Z,predate:T->Z){
+  static public function fold<T,Z>(self:Spine<T>,unknown:Void->Z,primate:Primitive->Z,collect:Cluster<Z>->Z,collate:Record<Z>->Z,predate:T->Z){
     var f = fold.bind(_,unknown,primate,collect,collate,predate);
     return switch(self){
       case Unknown        : unknown();

@@ -9,7 +9,7 @@ class Record<T> implements EqApi<RecordT<T>> extends Clazz{
     this.inner = inner;
   }
   public function comply(a:RecordT<T>,b:RecordT<T>):Equaled{
-    return Eq.Array(
+    return Eq.Cluster(
       Eq.Anon(
         (lhs:Field<Thunk<T>>,rhs:Field<Thunk<T>>) -> Eq.String().comply(lhs.fst(),rhs.fst()) && inner.comply(lhs.snd()(),rhs.snd()())
       )
