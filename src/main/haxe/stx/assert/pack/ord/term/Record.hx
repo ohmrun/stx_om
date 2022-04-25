@@ -2,7 +2,7 @@ package stx.assert.pack.ord.term;
 
 import stx.om.core.Record in RecordT;
 
-class Record<T> implements OrdApi<RecordT<T>>{
+class Record<T> extends OrdCls<RecordT<T>>{
   public var inner(default,null):Ord<T>;
   public function new(inner){
     this.inner = inner;

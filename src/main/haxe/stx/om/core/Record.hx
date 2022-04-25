@@ -8,7 +8,7 @@ typedef RecordDef<T> = Cluster<Field<Thunk<T>>>;
   static public function unit<T>():Record<T>{
     return new Record([].imm());
   }
-  static public function lift<T>(self:RecordDef<T>):Record<T>{
+  @:noUsing static public function lift<T>(self:RecordDef<T>):Record<T>{
     return new Record(self);
   }
   public function new(?self:RecordDef<T>) this = self == null ? [] : self;

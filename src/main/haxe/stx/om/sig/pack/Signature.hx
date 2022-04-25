@@ -11,7 +11,7 @@ enum SignatureSum<T>{
 @:using(stx.om.sig.pack.Signature.SignatureLift)
 abstract Signature<TH>(SignatureSum<TH>) from SignatureSum<TH> to SignatureSum<TH>{
   public function new(self) this = self;
-  static public function lift<TH>(self:SignatureSum<TH>):Signature<TH> return new Signature(self);
+  @:noUsing static public function lift<TH>(self:SignatureSum<TH>):Signature<TH> return new Signature(self);
   
 
   

@@ -13,7 +13,7 @@ class Spine<T> implements OrdApi<Spine<T>>{
       case [Primate(lhs),Primate(rhs)]  : Ord.Primitive().comply(lhs,rhs);
       case [Collect(lhs),Collect(rhs)]  : Ord.Array(this).comply(lhs,rhs);
       case [Collate(lhs),Collate(rhs)]  : Record._.ord(this).comply(lhs,rhs);
-      case [Predate(lhs),Predate(rhs)]  : inner.apply(lhs,rhs);
+      case [Predate(lhs),Predate(rhs)]  : inner.comply(lhs,rhs);
       case [Unknown,Unknown]            : NotLessThan;
       default                           : Ord.Int().comply(EnumValue.pure(lhs).index(),EnumValue.pure(rhs).index());
     }

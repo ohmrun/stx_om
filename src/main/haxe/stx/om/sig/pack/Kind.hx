@@ -7,7 +7,7 @@ enum KindSum{
 
 abstract Kind(KindSum) from KindSum to KindSum{
   public function new(self) this = self;
-  static public function lift(self:KindSum):Kind return new Kind(self);
+  @:noUsing static public function lift(self:KindSum):Kind return new Kind(self);
 
   public function prj():KindSum return this;
   private var self(get,never):Kind;
