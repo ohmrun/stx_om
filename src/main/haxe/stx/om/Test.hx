@@ -23,7 +23,7 @@ class PmlParseTest extends TestCase{
     final string  = __.resource("test.pml").string();
     __.ctx(
       Noise,
-      (x:Res<ParseResult<Token,Expr<Atom>>,Noise>) -> {
+      (x:Res<ParseResult<Token,PExpr<Atom>>,Noise>) -> {
         x.point(
           y -> {
             for (e in y.error){

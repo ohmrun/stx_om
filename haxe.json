@@ -6,6 +6,8 @@
     "-cp" : "src/main/haxe",
     "unit" : {
       "--macro" : [
+        "include('stx.assert',true)",
+        "include('stx.om',true)",
         "include('stx.om.Spine',true)",
         "include('stx.om.spine',true)",
         "include('stx.om.Signature',true)",

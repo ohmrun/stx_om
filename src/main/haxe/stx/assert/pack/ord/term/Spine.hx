@@ -1,21 +1,20 @@
 package stx.assert.pack.ord.term;
 
-import stx.om.spine.pack.Spine in SpineT;
+import stx.om.spine.pack.Spine in TSpine;
 
-class Spine<T> implements OrdApi<Spine<T>>{
-  public var inner(default,null):Ord<T>;
-  public function new(inner){
-    this.inner = inner;
+class Spine<T> extends OrdCls<TSpine<T>>{
+  final delegate:Ord<T>;
+  public function new(delegate){
+    this.delegate = delegate;
   }
-  public function comply(lhs:Spine<T>,rhs:Spine<T>):Ordered{
-    return switch([lhs,rhs]){
+  public function comply(thiz:TSpine<T>,that:TSpine<T>):Ordered{
+    return switch([thiz,that]){
       case [Unknown,Unknown]            : NotLessThan;
       case [Primate(lhs),Primate(rhs)]  : Ord.Primitive().comply(lhs,rhs);
-      case [Collect(lhs),Collect(rhs)]  : Ord.Array(this).comply(lhs,rhs);
-      case [Collate(lhs),Collate(rhs)]  : Record._.ord(this).comply(lhs,rhs);
-      case [Predate(lhs),Predate(rhs)]  : inner.comply(lhs,rhs);
-      case [Unknown,Unknown]            : NotLessThan;
-      default                           : Ord.Int().comply(EnumValue.pure(lhs).index(),EnumValue.pure(rhs).index());
+      case [Collect(lhs),Collect(rhs)]  : Ord.Cluster(Ord.Anon((l:Thunk<TSpine<T>>,r:Thunk<TSpine<T>>) -> this.comply(l(),r()))).comply(lhs,rhs);
+      case [Collate(lhs),Collate(rhs)]  : new stx.assert.pack.ord.term.Record(this).comply(lhs,rhs);
+      case [Predate(lhs),Predate(rhs)]  : delegate.comply(lhs,rhs);
+      default                           : Ord.EnumValueIndex().comply(thiz,that);
     }
   }
 }
