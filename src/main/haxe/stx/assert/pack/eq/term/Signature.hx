@@ -1,4 +1,5 @@
 package stx.assert.pack.eq.term;
+
 import stx.om.sig.pack.Signature in SignatureT;
 
 class Signature<T> implements EqApi<SignatureT<T>> extends Clazz{
