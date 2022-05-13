@@ -3,7 +3,7 @@ package stx.fail;
 enum OMFailureSum{
   E_OM_KeyNotFound(str:String);
   E_OM_UnexpectedEmpty;
-  E_OM_UMatchedValueType(?type:Any);
+  E_OM_UnmatchedValueType(?type:Any);
   E_OM_UnexpectedKey(str:String);
   E_OM_NotFound;
 }

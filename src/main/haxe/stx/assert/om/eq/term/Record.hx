@@ -1,4 +1,4 @@
-package stx.assert.pack.eq.term;
+package stx.assert.om.eq.term;
 
 import stx.om.core.Record in RecordT;
 

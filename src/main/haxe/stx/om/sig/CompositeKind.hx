@@ -1,4 +1,4 @@
-package stx.om.sig.pack;
+package stx.om.sig;
 
 enum CompositeKind{
   CK_Nominal;

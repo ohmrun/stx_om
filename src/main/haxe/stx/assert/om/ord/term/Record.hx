@@ -1,4 +1,4 @@
-package stx.assert.pack.ord.term;
+package stx.assert.om.ord.term;
 
 import stx.om.core.Record in RecordT;
 

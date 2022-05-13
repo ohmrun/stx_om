@@ -1,11 +1,11 @@
-package stx.om.sig.pack;
+package stx.om.sig;
 
 enum PrimitiveKindSum{
+  TUntypedUnknown;
   TBoolean;
   TInteger;
   TFloatingPoint;
   TCharacters;
-  TUntypedUnknown;
 }
 
 abstract PrimitiveKind(PrimitiveKindSum) from PrimitiveKindSum to PrimitiveKindSum{
@@ -22,6 +22,7 @@ abstract PrimitiveKind(PrimitiveKindSum) from PrimitiveKindSum to PrimitiveKindS
       case PSprig(Textal(_))          : TCharacters;
     }
   }
+  
   public function prj():PrimitiveKindSum{
     return this;
   }

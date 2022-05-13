@@ -1,6 +1,6 @@
-package stx.assert.pack.eq.term;
+package stx.assert.om.eq.term;
 
-import stx.om.sig.pack.Signature in SignatureT;
+import stx.om.sig.Signature in SignatureT;
 
 class Signature<T> implements EqApi<SignatureT<T>> extends Clazz{
   public var inner(default,null):Eq<T>;

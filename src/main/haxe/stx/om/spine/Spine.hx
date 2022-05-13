@@ -1,4 +1,4 @@
-package stx.om.spine.pack;
+package stx.om.spine;
 
 enum SpineSum<T>{
   Unknown;
@@ -66,7 +66,7 @@ class SpineLift{
     return handler(spine);
   }
   static public function equals<T>(thiz:Spine<T>,that:Spine<T>,with:Eq<T>){
-    return new stx.assert.pack.eq.term.Spine(with).comply(thiz,that);
+    return new stx.assert.om.eq.term.Spine(with).comply(thiz,that);
   }
   static public function fold<T,Z>(self:Spine<T>,unknown:Void->Z,primate:Primitive->Z,collect:Cluster<Z>->Z,collate:Record<Z>->Z,predate:T->Z){
     var f = fold.bind(_,unknown,primate,collect,collate,predate);

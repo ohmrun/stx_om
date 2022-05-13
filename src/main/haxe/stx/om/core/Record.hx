@@ -94,13 +94,16 @@ typedef RecordDef<T> = Cluster<Field<Thunk<T>>>;
   public function prj():Cluster<Field<Thunk<T>>>{
     return this;
   }
+  public function toCluster():Cluster<Field<Thunk<T>>>{
+    return this;
+  }
   
 }
 class RecordLift{
   static public function ord<T>(inner:Ord<T>):Ord<Record<T>>{
-    return new stx.assert.pack.ord.term.Record(inner);
+    return new stx.assert.om.ord.term.Record(inner);
   }
   static public function eq<T>(inner):Eq<Record<T>>{
-    return new stx.assert.pack.eq.term.Record(inner);
+    return new stx.assert.om.eq.term.Record(inner);
   }
 }

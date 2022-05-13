@@ -1,14 +1,14 @@
-package stx.om.sig.pack;
+package stx.om.sig;
 
 enum SignatureSum<T>{
-  SigCollate(arr:Record<Signature<T>>);
+  SigUnknown;
   SigPrimate(s:PrimitiveKind);
   SigCollect(fn:Thunk<Signature<T>>);  
+  SigCollate(arr:Record<Signature<T>>);
   SigPredate(v:T);
-  SigUnknown;
 }
 
-@:using(stx.om.sig.pack.Signature.SignatureLift)
+@:using(stx.om.sig.Signature.SignatureLift)
 abstract Signature<TH>(SignatureSum<TH>) from SignatureSum<TH> to SignatureSum<TH>{
   public function new(self) this = self;
   @:noUsing static public function lift<TH>(self:SignatureSum<TH>):Signature<TH> return new Signature(self);
@@ -24,7 +24,7 @@ abstract Signature<TH>(SignatureSum<TH>) from SignatureSum<TH> to SignatureSum<T
 }
 class SignatureLift{
   static public function equals<T>(lhs:Signature<T>,rhs:Signature<T>,inner:Eq<T>){
-    return new stx.assert.pack.eq.term.Signature(inner).comply(lhs,rhs);
+    return new stx.assert.om.eq.term.Signature(inner).comply(lhs,rhs);
   }
   static public function fold<T,Z>(self:Signature<T>,recd: Record<Z>->Z,prim:PrimitiveKind->Z,array:Thunk<Signature<T>>->Z,fn:T->Z,n:Void->Z):Z{
     var f = fold.bind(_,recd,prim,array,fn,n);

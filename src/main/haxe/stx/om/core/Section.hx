@@ -1,4 +1,4 @@
-package stx.om.spine.pack;
+package stx.om.core;
 
 enum SectionSum{
   Ordinal(int:Int);

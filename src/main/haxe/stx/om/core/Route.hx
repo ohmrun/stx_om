@@ -1,6 +1,5 @@
-package stx.om.spine.pack;
+package stx.om.core;
 
-import stx.om.spine.Package.Section;
 
 @:forward abstract Route(Cluster<Section>) from Cluster<Section> to Cluster<Section>{
   static public function unit():Route{

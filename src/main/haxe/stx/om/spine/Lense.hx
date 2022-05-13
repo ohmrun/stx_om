@@ -111,7 +111,7 @@ class LenseLift{
                         (a:Record<Spine<T>>,b:Record<Spine<T>>) -> Collate(a.concat(b))
                       )
                     );
-                  default : __.reject(__.fault().of(E_OM_UMatchedValueType()));
+                  default : __.reject(__.fault().of(E_OM_UnmatchedValueType()));
                 }
               ) 
             );
@@ -135,7 +135,7 @@ class LenseLift{
             ),
             __.accept(Cluster.unit())
           ).map(Collect);
-          default : __.reject(__.fault().of(E_OM_UMatchedValueType()));
+          default : __.reject(__.fault().of(E_OM_UnmatchedValueType()));
         }
     }
   }
