@@ -2,10 +2,10 @@ package stx.om.spine;
 
 enum SpineSum<T>{
   Unknown;
+  Predate(v:T);//TODO this order changes depending on what T is, right? Pre-date vs predate
   Primate(sc:Primitive);
-  Collect(arr:Cluster<Thunk<Spine<T>>>);
   Collate(arr:Record<Spine<T>>);
-  Predate(v:T);
+  Collect(arr:Cluster<Thunk<Spine<T>>>);
 }
 @:forward abstract Spine<T>(SpineSum<T>) from SpineSum<T> to SpineSum<T>{
   @:from static public function fromPrimitive<T>(v:PrimitiveDef):Spine<T>{
@@ -17,10 +17,10 @@ enum SpineSum<T>{
   @:noUsing static public function array<T>():Spine<T>{
     return Collect([]);
   }
-  public function zipper(){
-    var ls : LinkedList<Spine<T>> = Cons(this,Nil);
-    return new Zip(Some(ls));
-  }
+  // public function zipper(){
+  //   var ls : LinkedList<Spine<T>> = Cons(this,Nil);
+  //   return new Zip(Some(ls));
+  // }
   public function unbox():SpineSum<T>{
     return this;
   }

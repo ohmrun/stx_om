@@ -1,6 +1,5 @@
 package stx.om.core;
 
-
 @:forward abstract Route(Cluster<Section>) from Cluster<Section> to Cluster<Section>{
   static public function unit():Route{
     return Cluster.unit();

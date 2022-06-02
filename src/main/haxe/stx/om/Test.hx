@@ -51,7 +51,7 @@ class PmlParseTest extends TestCase{
     }
     function tuple2(expr){
       switch(expr){
-        case Group(Cons(Value(lhs),Cons(rhs,Nil))) : 
+        case PGroup(Cons(PValue(lhs),Cons(rhs,Nil))) : 
           trace(rhs);
         default : 
           trace(expr);
@@ -60,7 +60,7 @@ class PmlParseTest extends TestCase{
     function object(expr){
       trace(expr);
       switch(expr){
-        case Group(list)    : 
+        case PGroup(list)    : 
           for(tup2 in list){
             tuple2(tup2);
           }
@@ -68,7 +68,7 @@ class PmlParseTest extends TestCase{
       }
     }
     switch(expr){
-      case Group(list) : 
+      case PGroup(list) : 
         for(obj in list){
           object(obj);
         }

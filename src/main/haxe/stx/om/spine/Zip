@@ -26,7 +26,7 @@ abstract Zip<T>(Option<LinkedList<Spine<T>>>) from Option<LinkedList<Spine<T>>>{
   }
   public function down(selector:Section):Zip<T>{
     return switch([this,selector]){
-      case [Some(Cons(Collate(arr),xs)),Nominal(str)]:
+      case [Some(Cons(Collate(arr),xs)),SIdx(str)]:
 
         var val = arr.fold(
           function(next,memo:Option<Field<Thunk<Spine<T>>>>){
