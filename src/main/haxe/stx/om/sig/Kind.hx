@@ -1,7 +1,7 @@
 package stx.om.sig;
 
 enum KindSum{
-  Simple(p:PrimitiveKind);
+  Simple(p:PrimitiveType);
   Composite(c:CompositeKind);
 }
 
@@ -13,7 +13,7 @@ abstract Kind(KindSum) from KindSum to KindSum{
   private var self(get,never):Kind;
   private function get_self():Kind return lift(this);
 
-  @:from static public function fromPrimitive(p:Primitive){
+  @:from static public function fromPrimitiveType(p:PrimitiveType){
     return lift(Simple(p));
   }
 }

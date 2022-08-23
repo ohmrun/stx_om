@@ -2,7 +2,7 @@
   "build" : {
     "-resource" : ["src/main/haxe/resources/test.pml@test.pml"],
     "-D" : ["no-deprecation-warnings","stx.parse.switches.debug=false"],
-    "-lib" : ["stx_pico","stx_nano","stx_ds","stx_log","stx_assert","pml","stx_parse"],
+    "-lib" : ["stx_pico","stx_nano","stx_ds","stx_log","stx_assert","pml","stx_parse","stx_test"],
     "-cp" : "src/main/haxe",
     "unit" : {
       "--macro" : [

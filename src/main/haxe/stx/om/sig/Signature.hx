@@ -1,8 +1,25 @@
 package stx.om.sig;
 
+class SignatureCtr extends Clazz{
+  public function Unknown<T>():Signature<T>{
+    return SigUnknown;
+  }
+  public function Primate<T>(fn:CTR<PrimitiveTypeCtr,PrimitiveType>):Signature<T>{
+    return SigPrimate(fn(new PrimitiveTypeCtr()));
+  }
+  public function Collect<T>(fn:CTR<SignatureCtr,Signature<T>>):Signature<T>{
+    return SigCollect(() -> fn(this));
+  }
+  public function Collate<T>(fn:CTR<SignatureCtr,Map<String,Signature<T>>>):Signature<T>{
+    return SigCollate(Record.fromMap(fn(this)));
+  }
+  public function Predate<T>(self:T):Signature<T>{
+    return SigPredate(self);
+  }
+}
 enum SignatureSum<T>{
   SigUnknown;
-  SigPrimate(s:PrimitiveKind);
+  SigPrimate(s:PrimitiveType);
   SigCollect(fn:Thunk<Signature<T>>);  
   SigCollate(arr:Record<Signature<T>>);
   SigPredate(v:T);
@@ -26,7 +43,7 @@ class SignatureLift{
   static public function equals<T>(lhs:Signature<T>,rhs:Signature<T>,inner:Eq<T>){
     return new stx.assert.om.eq.term.Signature(inner).comply(lhs,rhs);
   }
-  static public function fold<T,Z>(self:Signature<T>,recd: Record<Z>->Z,prim:PrimitiveKind->Z,array:Thunk<Signature<T>>->Z,fn:T->Z,n:Void->Z):Z{
+  static public function fold<T,Z>(self:Signature<T>,recd: Record<Z>->Z,prim:PrimitiveType->Z,array:Thunk<Signature<T>>->Z,fn:T->Z,n:Void->Z):Z{
     var f = fold.bind(_,recd,prim,array,fn,n);
     return switch self.prj() {
       case SigCollate(arr)  : recd(arr.map(f));

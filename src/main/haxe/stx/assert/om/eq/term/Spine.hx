@@ -1,6 +1,6 @@
 package stx.assert.om.eq.term;
 
-import stx.assert.om.eq.term.Record in RecordEq;
+import stx.assert.eq.term.Record in RecordEq;
 
 import stx.om.spine.Spine in SpineT;
 

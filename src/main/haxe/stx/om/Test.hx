@@ -13,7 +13,7 @@ class Test{
           //log.includes.push("eu/ohmrun/pml");
           //log.includes.push("stx/parse");
           //log.level = TRACE;
-    __.test([
+    __.test().run([
       new PmlParseTest()
     ],[]);
   }

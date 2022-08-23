@@ -1,5 +1,22 @@
 package stx.om.sig;
 
+class PrimitiveKindCtr extends Clazz{
+  public function Unknown(){
+    return TUntypedUnknown;
+  }
+  public function Boolean(){
+    return TBoolean;
+  }
+  public function Integer(){
+    return TInteger;
+  }
+  public function FloatingPoint(){
+    return TFloatingPoint;
+  }
+  public function Characters(){
+    return TCharacters;
+  }
+}
 enum PrimitiveKindSum{
   TUntypedUnknown;
   TBoolean;
