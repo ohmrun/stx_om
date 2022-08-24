@@ -5,7 +5,7 @@ enum SpineSum<T>{
   Predate(v:T);//TODO this order changes depending on what T is, right? Pre-date vs predate
   Primate(sc:Primitive);
   Collate(arr:Record<Spine<T>>);
-  Collect(arr:Cluster<Thunk<Spine<T>>>);
+  Collect(arr:Cluster<Void -> Spine<T>>);
 }
 @:forward abstract Spine<T>(SpineSum<T>) from SpineSum<T> to SpineSum<T>{
   @:from static public function fromPrimitive<T>(v:PrimitiveDef):Spine<T>{
@@ -57,7 +57,7 @@ class SpineLift{
     function handler(spine:Spine<T>):Spine<U>{
       return switch(spine){
         case Collate(arr)   : Collate(arr.map(handler));
-        case Collect(arr)   : Collect(arr.map((thk:Thunk<Spine<T>>) -> () -> handler(thk())));
+        case Collect(arr)   : Collect(arr.map((thk:Void -> Spine<T>) -> () -> handler(thk())));
         case Unknown        : fn(Unknown);
         case Primate(s)     : fn(Primate(s));
         case Predate(t)     : fn(Predate(t));

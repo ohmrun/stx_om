@@ -20,7 +20,7 @@ class SignatureCtr extends Clazz{
 enum SignatureSum<T>{
   SigUnknown;
   SigPrimate(s:PrimitiveType);
-  SigCollect(fn:Thunk<Signature<T>>);  
+  SigCollect(fn:Void -> Signature<T>);  
   SigCollate(arr:Record<Signature<T>>);
   SigPredate(v:T);
 }
@@ -43,7 +43,7 @@ class SignatureLift{
   static public function equals<T>(lhs:Signature<T>,rhs:Signature<T>,inner:Eq<T>){
     return new stx.assert.om.eq.term.Signature(inner).comply(lhs,rhs);
   }
-  static public function fold<T,Z>(self:Signature<T>,recd: Record<Z>->Z,prim:PrimitiveType->Z,array:Thunk<Signature<T>>->Z,fn:T->Z,n:Void->Z):Z{
+  static public function fold<T,Z>(self:Signature<T>,recd: Record<Z>->Z,prim:PrimitiveType->Z,array:(Void ->Signature<T>)->Z,fn:T->Z,n:Void->Z):Z{
     var f = fold.bind(_,recd,prim,array,fn,n);
     return switch self.prj() {
       case SigCollate(arr)  : recd(arr.map(f));

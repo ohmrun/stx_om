@@ -20,7 +20,7 @@ class Spine<T> implements EqApi<SpineT<T>>{
       case [Collect(arr0),Collect(arr1)]                            : 
         Eq.Cluster(
           Eq.Anon(
-            (lhs:Thunk<SpineT<T>>,rhs:Thunk<SpineT<T>>) -> this.comply(lhs(),rhs())
+            (lhs:Void -> SpineT<T>,rhs:Void -> SpineT<T>) -> this.comply(lhs(),rhs())
           )
         ).comply(arr0,arr1);
       case [Unknown,Unknown]                                        : AreEqual;

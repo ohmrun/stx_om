@@ -33,7 +33,7 @@ class LenseLift{
         case Collate(rec) : rec.get(source).fold(
           _ -> __.accept(
             Collate(rec.fold(
-              (next:Field<Thunk<Spine<T>>>,memo:Record<Spine<T>>) -> if(next.key == source){
+              (next:Field<Void -> Spine<T>>,memo:Record<Spine<T>>) -> if(next.key == source){
                 memo.add(Field.make(target,next.val));
               }else{
                 memo.add(Field.make(next.key,next.val));
@@ -89,7 +89,7 @@ class LenseLift{
                 (lres,rres) -> switch([lres,rres]){
                   case [Collate(ls),Collate(rs)] : 
                     final set_fails = ls.fold(
-                      (next:Field<Thunk<Spine<T>>>,memo:Report<OMFailure>) -> memo.concat(into.has(next.key).if_else(
+                      (next:Field<Void -> Spine<T>>,memo:Report<OMFailure>) -> memo.concat(into.has(next.key).if_else(
                         () -> Report.unit(),
                         () -> __.report(_ -> _.of(E_OM_UnexpectedKey(next.key)))
                       )),
@@ -98,7 +98,7 @@ class LenseLift{
                       () -> ls
                     );
                     final unset_fails = rs.fold(
-                      (next:Field<Thunk<Spine<T>>>,memo:Report<OMFailure>) -> memo.concat((!into.has(next.key)).if_else(
+                      (next:Field<Void -> Spine<T>>,memo:Report<OMFailure>) -> memo.concat((!into.has(next.key)).if_else(
                         () -> Report.unit(),
                         () -> __.report(_ -> _.of(E_OM_UnexpectedKey(next.key)))
                       )),
@@ -120,7 +120,7 @@ class LenseLift{
       case LsMap(lense)                           : 
         switch(data){
           case Collate(x) : x.fold(
-            (next:Field<Thunk<Spine<T>>>,memo:Res<Record<Spine<T>>,OMFailure>) -> memo.flat_map(
+            (next:Field<Void -> Spine<T>>,memo:Res<Record<Spine<T>>,OMFailure>) -> memo.flat_map(
               record -> put(lense,next.val()).map(
                 item -> record.add(Field.make(next.key,() -> item))
               )
@@ -128,7 +128,7 @@ class LenseLift{
             __.accept(Record.unit())
           ).map(Collate);
           case Collect(x) : x.lfold(
-            (next:Thunk<Spine<T>>,memo:Res<Cluster<Thunk<Spine<T>>>,OMFailure>) -> memo.flat_map(
+            (next:Void -> Spine<T>,memo:Res<Cluster<Void -> Spine<T>>,OMFailure>) -> memo.flat_map(
               (cluster) -> put(lense,next()).map(
                 y -> cluster.snoc(() -> y)
               )
