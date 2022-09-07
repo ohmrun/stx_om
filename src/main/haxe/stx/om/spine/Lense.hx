@@ -2,7 +2,7 @@ package stx.om.spine;
 
 enum LenseSum<T>{
   LsId;
-  LsConstant(value:Spine<T>,_default:Spine<T>);
+  LsConstant(value:T,_default:T);
   LsSequence(l:Lense<T>,r:Lense<T>);
   
   LsRename(source:String,target:String);
@@ -22,7 +22,7 @@ abstract Lense<T>(LenseSum<T>) from LenseSum<T> to LenseSum<T>{
   private function get_self():Lense<T> return lift(this);
 }
 class LenseLift{
-  static public function put<T>(self:Lense<T>,data:Spine<T>):Res<Spine<T>,OMFailure>{
+  static public function put<T>(self:Lense<Spine<T>>,data:Spine<T>):Res<Spine<T>,OMFailure>{
     return switch(self){
       case LsId                                   : __.accept(data);
       case LsConstant(value,_default)             : __.accept(value);
