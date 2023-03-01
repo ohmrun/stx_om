@@ -6,11 +6,11 @@
   "version": "0.1.0",
   "classPath": "src/main/haxe/",
   "dependencies": {
-    "stx_pico"      : "git:https://github.com/ohmrun/stx_pico.git",
-    "stx_nano"      : "git:https://github.com/ohmrun/stx_nano.git",
-    "stx_ds"        : "git:https://github.com/ohmrun/stx_ds.git",
+    "stx_pico"      : "",
+    "stx_nano"      : "",
+    "stx_ds"        : "",
     
-    "stx_log"       : "git:https://github.com/ohmrun/stx_log.git",
-    "stx_assert"    : "git:https://github.com/ohmrun/stx_assert.git"
+    "stx_log"       : "",
+    "stx_assert"    : ""
   }
 }
