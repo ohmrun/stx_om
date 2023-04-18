@@ -1,13 +1,13 @@
 package stx.om.spine;
 
-enum SpineSum<T>{
+enum SpineSum<T = tink.core.Noise>{
   Unknown;
   Predate(v:T);//TODO this order changes depending on what T is, right? Pre-date vs predate
   Primate(sc:Primitive);
   Collate(arr:Record<Spine<T>>);
   Collect(arr:Cluster<Void -> Spine<T>>);
 }
-@:forward abstract Spine<T>(SpineSum<T>) from SpineSum<T> to SpineSum<T>{
+@:forward abstract Spine<T = tink.core.Noise>(SpineSum<T>) from SpineSum<T> to SpineSum<T>{
   @:from static public function fromPrimitive<T>(v:PrimitiveDef):Spine<T>{
     return Primate(v);
   }

@@ -1,5 +1,7 @@
 package stx.om;
 
+using tink.CoreApi;
+
 using Lambda;
 
 import stx.om.Core;

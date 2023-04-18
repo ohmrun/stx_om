@@ -1,5 +1,8 @@
 package stx.om;
 
+using stx.Ds;
+using stx.Log;
+using stx.Nano;
 using stx.Show;
 using stx.Parse;
 import tink.CoreApi;
@@ -23,22 +26,16 @@ class PmlParseTest extends TestCase{
     final string  = __.resource("test.pml").string();
     __.ctx(
       Noise,
-      (x:Res<ParseResult<Token,PExpr<Atom>>,Noise>) -> {
-        x.point(
-          y -> {
-            for (e in y.error){
-              trace("_____________");
-              trace(e);
-              trace("!!!!!!!!!!!!!");
-            }
-            for(val in y.toRes().option().flat_map(x -> x)){
-              //trace(__.show(val));
-              handle(val);
-            }
-            
-            return __.report();
+      (x:ParseResult<Token,PExpr<Atom>>) -> {
+          for (e in x.error){
+            trace("_____________");
+            trace(e);
+            trace("!!!!!!!!!!!!!");
           }
-        ).raise();
+          for(val in x.toRes().option().flat_map(x -> x)){
+            //trace(__.show(val));
+            handle(val);
+          }
       }
     ).load(__.pml().parse(string))
      .crunch();

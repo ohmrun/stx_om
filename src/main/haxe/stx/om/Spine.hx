@@ -1,5 +1,5 @@
 package stx.om;
 
-typedef SpineSum<T> = stx.om.spine.Spine.SpineSum<T>;
-typedef Spine<T>    = stx.om.spine.Spine.Spine<T>;
-typedef Lense<T>    = stx.om.spine.Lense<T>;
+@:noCompletion typedef SpineSum<T = tink.core.Noise> = stx.om.spine.Spine.SpineSum<T>;
+@:noCompletion typedef Spine<T = tink.core.Noise>    = stx.om.spine.Spine.Spine<T>;
+@:noCompletion typedef Lense<T>                      = stx.om.spine.Lense<T>;
