@@ -3,7 +3,7 @@
   "releasenote": "see CHANGELOG.md",
   "license": "MIT",
   "contributors": ["0b1kn0b"],
-  "version": "0.2.1",
+  "version": "0.3.0",
   "classPath": "src/main/haxe/",
   "dependencies": {
     "stx_pico"      : "",
