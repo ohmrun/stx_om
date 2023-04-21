@@ -79,8 +79,8 @@ class LenseLift{
             final sets = rec.prj().partition(
               x -> from.has(x.key)
             );
-            final lval = Collate(Record.lift(sets.a.imm()));
-            final rval = Collate(Record.lift(sets.b.imm()));
+            final lval                        = Collate(Record.lift(sets.a.imm()));
+            final rval                        = Collate(Record.lift(sets.b.imm()));
             final l : Res<Spine<T>,OMFailure> = put(lhs,lval);
             final r : Res<Spine<T>,OMFailure> = put(rhs,rval);
 

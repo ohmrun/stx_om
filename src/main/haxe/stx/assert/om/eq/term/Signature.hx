@@ -2,7 +2,7 @@ package stx.assert.om.eq.term;
 
 import stx.om.sig.Signature in SignatureT;
 
-class Signature<T> implements EqApi<SignatureT<T>> extends Clazz{
+class Signature<T> extends stx.assert.eq.term.Base<SignatureT<T>>{
   public var inner(default,null):Eq<T>;
   public function new(inner){
     super();

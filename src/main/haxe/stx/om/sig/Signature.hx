@@ -19,10 +19,10 @@ class SignatureCtr extends Clazz{
 }
 enum SignatureSum<T>{
   SigUnknown;
+  SigPredate(v:T);
   SigPrimate(s:PrimitiveType);
   SigCollect(fn:Void -> Signature<T>);  
   SigCollate(arr:Record<Signature<T>>);
-  SigPredate(v:T);
 }
 
 @:using(stx.om.sig.Signature.SignatureLift)

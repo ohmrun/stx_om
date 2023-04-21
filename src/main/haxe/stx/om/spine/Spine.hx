@@ -7,6 +7,7 @@ enum SpineSum<T = tink.core.Noise>{
   Collate(arr:Record<Spine<T>>);
   Collect(arr:Cluster<Void -> Spine<T>>);
 }
+@:using(stx.om.spine.Spine.SpineLift)
 @:forward abstract Spine<T = tink.core.Noise>(SpineSum<T>) from SpineSum<T> to SpineSum<T>{
   @:from static public function fromPrimitive<T>(v:PrimitiveDef):Spine<T>{
     return Primate(v);
@@ -32,6 +33,26 @@ enum SpineSum<T = tink.core.Noise>{
   }
 }
 class SpineLift{
+  static public function toJson<T>(self:Spine<T>){
+    function rec(v:Spine<T>):Any{
+      trace(v);
+      return switch(v){
+        case Unknown              : null;
+        case Predate(v)           : v;
+        case Primate(PBool(b))    : b;
+        case Primate(p)   : p.toAny();
+        case Collate(arr) : 
+          final obj : Dynamic = {};
+          for(x in arr){
+            Reflect.setField(obj,x.fst(),rec(x.snd()()));
+          }
+          obj;
+        case Collect(arr) : 
+          arr.map((x:Void->Spine<T>) -> rec(x()));
+      }
+    }
+    return haxe.Json.stringify(rec(self)," ");
+  }
   // static public function traverse<T,Ti>(fn:T->Ti):Y<Spine<T>,Expr<Ti>>{
   //   return function rec(y:Y<Spine<T>,Expr<Ti>>):Spine<T>->Expr<Ti>{
   //     var fn = rec(y);

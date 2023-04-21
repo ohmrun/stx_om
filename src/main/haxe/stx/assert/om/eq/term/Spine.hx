@@ -4,7 +4,7 @@ import stx.assert.eq.term.Record in RecordEq;
 
 import stx.om.spine.Spine in SpineT;
 
-class Spine<T> implements EqApi<SpineT<T>>{
+class Spine<T> extends EqCls<SpineT<T>>{
   var inner : Eq<T>;
   public function new(inner){
     this.inner = inner;
