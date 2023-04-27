@@ -32,7 +32,7 @@ class PmlParseTest extends TestCase{
             trace(e);
             trace("!!!!!!!!!!!!!");
           }
-          for(val in x.toRes().option().flat_map(x -> x)){
+          for(val in x.toUpshot().option().flat_map(x -> x)){
             //trace(__.show(val));
             handle(val);
           }

@@ -22,7 +22,7 @@ abstract Lense<T>(LenseSum<T>) from LenseSum<T> to LenseSum<T>{
   private function get_self():Lense<T> return lift(this);
 }
 class LenseLift{
-  static public function put<T>(self:Lense<Spine<T>>,data:Spine<T>):Res<Spine<T>,OMFailure>{
+  static public function put<T>(self:Lense<Spine<T>>,data:Spine<T>):Upshot<Spine<T>,OMFailure>{
     return switch(self){
       case LsId                                   : __.accept(data);
       case LsConstant(value,_default)             : __.accept(value);
@@ -81,8 +81,8 @@ class LenseLift{
             );
             final lval                        = Collate(Record.lift(sets.a.imm()));
             final rval                        = Collate(Record.lift(sets.b.imm()));
-            final l : Res<Spine<T>,OMFailure> = put(lhs,lval);
-            final r : Res<Spine<T>,OMFailure> = put(rhs,rval);
+            final l : Upshot<Spine<T>,OMFailure> = put(lhs,lval);
+            final r : Upshot<Spine<T>,OMFailure> = put(rhs,rval);
 
             l.zip(r).flat_map(
               __.decouple(
@@ -120,7 +120,7 @@ class LenseLift{
       case LsMap(lense)                           : 
         switch(data){
           case Collate(x) : x.fold(
-            (next:Field<Void -> Spine<T>>,memo:Res<Record<Spine<T>>,OMFailure>) -> memo.flat_map(
+            (next:Field<Void -> Spine<T>>,memo:Upshot<Record<Spine<T>>,OMFailure>) -> memo.flat_map(
               record -> put(lense,next.val()).map(
                 item -> record.add(Field.make(next.key,() -> item))
               )
@@ -128,7 +128,7 @@ class LenseLift{
             __.accept(Record.unit())
           ).map(Collate);
           case Collect(x) : x.lfold(
-            (next:Void -> Spine<T>,memo:Res<Cluster<Void -> Spine<T>>,OMFailure>) -> memo.flat_map(
+            (next:Void -> Spine<T>,memo:Upshot<Cluster<Void -> Spine<T>>,OMFailure>) -> memo.flat_map(
               (cluster) -> put(lense,next()).map(
                 y -> cluster.snoc(() -> y)
               )
