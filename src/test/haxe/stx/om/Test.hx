@@ -25,7 +25,7 @@ class PmlParseTest extends TestCase{
   public function test(){
     final string  = __.resource("test.pml").string();
     __.ctx(
-      Noise,
+      Nada,
       (x:ParseResult<Token,PExpr<Atom>>) -> {
           for (e in x.error){
             trace("_____________");
