@@ -31,6 +31,9 @@ enum SpineSum<T = stx.pico.Nada>{
       default           : None;
     }
   }
+  public function prj():SpineSum<T>{
+    return this;
+  }
 }
 class SpineLift{
   static public function toJson<T>(self:Spine<T>){
@@ -110,3 +113,12 @@ class SpineLift{
     }
   }
 }
+/**
+switch($1){
+  case Unknown:
+  case Predate(v):
+  case Primate(sc):
+  Collate(arr):
+  Collect(arr):
+}
+ */

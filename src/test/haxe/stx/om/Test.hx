@@ -2,6 +2,7 @@ package stx.om;
 
 using stx.Ds;
 using stx.Log;
+using stx.Pico;
 using stx.Nano;
 using stx.Show;
 using stx.Parse;
