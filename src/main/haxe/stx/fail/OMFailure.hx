@@ -1,6 +1,7 @@
 package stx.fail;
 
 enum OMFailureSum{
+  E_OM(str:String);
   E_OM_KeyNotFound(str:String);
   E_OM_UnexpectedEmpty;
   E_OM_UnmatchedValueType(?type:Any);

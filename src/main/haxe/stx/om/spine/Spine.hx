@@ -9,7 +9,7 @@ enum SpineSum<T = stx.pico.Nada>{
 }
 @:using(stx.om.spine.Spine.SpineLift)
 @:forward abstract Spine<T = stx.pico.Nada>(SpineSum<T>) from SpineSum<T> to SpineSum<T>{
-  @:from static public function fromPrimitive<T>(v:PrimitiveDef):Spine<T>{
+  @:from static public function fromPrimitive<T>(v:PrimitiveSum):Spine<T>{
     return Primate(v);
   }
   @:noUsing static public function record<T>():Spine<T>{
@@ -85,6 +85,30 @@ class SpineLift{
         case Unknown        : fn(Unknown);
         case Primate(s)     : fn(Primate(s));
         case Predate(t)     : fn(Predate(t));
+      }
+    }
+    return handler(spine);
+  }
+  static public function map<T,U>(spine:Spine<T>,fn:T->U):Spine<U>{
+    function handler(spine:Spine<T>):Spine<U>{
+      return switch(spine){
+        case Collate(arr)   : Collate(arr.map(handler));
+        case Collect(arr)   : Collect(arr.map((thk:Void -> Spine<T>) -> () -> handler(thk())));
+        case Unknown        : Unknown;
+        case Primate(s)     : Primate(s);
+        case Predate(t)     : Predate(fn(t));
+      }
+    }
+    return handler(spine);
+  }
+  static public function flat_map<T,U>(spine:Spine<T>,fn:T->Spine<U>):Spine<U>{
+    function handler(spine:Spine<T>):Spine<U>{
+      return switch(spine){
+        case Collate(arr)   : Collate(arr.map(handler));
+        case Collect(arr)   : Collect(arr.map((thk:Void -> Spine<T>) -> () -> handler(thk())));
+        case Unknown        : Unknown;
+        case Primate(s)     : Primate(s);
+        case Predate(t)     : fn(t);
       }
     }
     return handler(spine);
